@@ -15,6 +15,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedPlantsRouteImport } from './routes/_authenticated/plants'
 import { Route as AuthenticatedPlantsNewRouteImport } from './routes/_authenticated/plants.new'
 import { Route as AuthenticatedPlantsIdRouteImport } from './routes/_authenticated/plants.$id'
+import { Route as AuthenticatedPlantsIdAnalyzeRouteImport } from './routes/_authenticated/plants.$id.analyze'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -45,20 +46,28 @@ const AuthenticatedPlantsIdRoute = AuthenticatedPlantsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => AuthenticatedPlantsRoute,
 } as any)
+const AuthenticatedPlantsIdAnalyzeRoute =
+  AuthenticatedPlantsIdAnalyzeRouteImport.update({
+    id: '/analyze',
+    path: '/analyze',
+    getParentRoute: () => AuthenticatedPlantsIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/plants': typeof AuthenticatedPlantsRouteWithChildren
-  '/plants/$id': typeof AuthenticatedPlantsIdRoute
+  '/plants/$id': typeof AuthenticatedPlantsIdRouteWithChildren
   '/plants/new': typeof AuthenticatedPlantsNewRoute
+  '/plants/$id/analyze': typeof AuthenticatedPlantsIdAnalyzeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/plants': typeof AuthenticatedPlantsRouteWithChildren
-  '/plants/$id': typeof AuthenticatedPlantsIdRoute
+  '/plants/$id': typeof AuthenticatedPlantsIdRouteWithChildren
   '/plants/new': typeof AuthenticatedPlantsNewRoute
+  '/plants/$id/analyze': typeof AuthenticatedPlantsIdAnalyzeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -66,14 +75,27 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
   '/_authenticated/plants': typeof AuthenticatedPlantsRouteWithChildren
-  '/_authenticated/plants/$id': typeof AuthenticatedPlantsIdRoute
+  '/_authenticated/plants/$id': typeof AuthenticatedPlantsIdRouteWithChildren
   '/_authenticated/plants/new': typeof AuthenticatedPlantsNewRoute
+  '/_authenticated/plants/$id/analyze': typeof AuthenticatedPlantsIdAnalyzeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/plants' | '/plants/$id' | '/plants/new'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/plants'
+    | '/plants/$id'
+    | '/plants/new'
+    | '/plants/$id/analyze'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/plants' | '/plants/$id' | '/plants/new'
+  to:
+    | '/'
+    | '/login'
+    | '/plants'
+    | '/plants/$id'
+    | '/plants/new'
+    | '/plants/$id/analyze'
   id:
     | '__root__'
     | '/'
@@ -82,6 +104,7 @@ export interface FileRouteTypes {
     | '/_authenticated/plants'
     | '/_authenticated/plants/$id'
     | '/_authenticated/plants/new'
+    | '/_authenticated/plants/$id/analyze'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -134,16 +157,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPlantsIdRouteImport
       parentRoute: typeof AuthenticatedPlantsRoute
     }
+    '/_authenticated/plants/$id/analyze': {
+      id: '/_authenticated/plants/$id/analyze'
+      path: '/analyze'
+      fullPath: '/plants/$id/analyze'
+      preLoaderRoute: typeof AuthenticatedPlantsIdAnalyzeRouteImport
+      parentRoute: typeof AuthenticatedPlantsIdRoute
+    }
   }
 }
 
+interface AuthenticatedPlantsIdRouteChildren {
+  AuthenticatedPlantsIdAnalyzeRoute: typeof AuthenticatedPlantsIdAnalyzeRoute
+}
+
+const AuthenticatedPlantsIdRouteChildren: AuthenticatedPlantsIdRouteChildren = {
+  AuthenticatedPlantsIdAnalyzeRoute: AuthenticatedPlantsIdAnalyzeRoute,
+}
+
+const AuthenticatedPlantsIdRouteWithChildren =
+  AuthenticatedPlantsIdRoute._addFileChildren(
+    AuthenticatedPlantsIdRouteChildren,
+  )
+
 interface AuthenticatedPlantsRouteChildren {
-  AuthenticatedPlantsIdRoute: typeof AuthenticatedPlantsIdRoute
+  AuthenticatedPlantsIdRoute: typeof AuthenticatedPlantsIdRouteWithChildren
   AuthenticatedPlantsNewRoute: typeof AuthenticatedPlantsNewRoute
 }
 
 const AuthenticatedPlantsRouteChildren: AuthenticatedPlantsRouteChildren = {
-  AuthenticatedPlantsIdRoute: AuthenticatedPlantsIdRoute,
+  AuthenticatedPlantsIdRoute: AuthenticatedPlantsIdRouteWithChildren,
   AuthenticatedPlantsNewRoute: AuthenticatedPlantsNewRoute,
 }
 
