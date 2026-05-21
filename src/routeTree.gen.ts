@@ -9,38 +9,126 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedPlantsRouteImport } from './routes/_authenticated/plants'
+import { Route as AuthenticatedPlantsNewRouteImport } from './routes/_authenticated/plants.new'
+import { Route as AuthenticatedPlantsIdRouteImport } from './routes/_authenticated/plants.$id'
+import { Route as AuthenticatedPlantsIdAnalyzeRouteImport } from './routes/_authenticated/plants.$id.analyze'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedPlantsRoute = AuthenticatedPlantsRouteImport.update({
+  id: '/plants',
+  path: '/plants',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedPlantsNewRoute = AuthenticatedPlantsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => AuthenticatedPlantsRoute,
+} as any)
+const AuthenticatedPlantsIdRoute = AuthenticatedPlantsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AuthenticatedPlantsRoute,
+} as any)
+const AuthenticatedPlantsIdAnalyzeRoute =
+  AuthenticatedPlantsIdAnalyzeRouteImport.update({
+    id: '/analyze',
+    path: '/analyze',
+    getParentRoute: () => AuthenticatedPlantsIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/plants': typeof AuthenticatedPlantsRouteWithChildren
+  '/plants/$id': typeof AuthenticatedPlantsIdRouteWithChildren
+  '/plants/new': typeof AuthenticatedPlantsNewRoute
+  '/plants/$id/analyze': typeof AuthenticatedPlantsIdAnalyzeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/plants': typeof AuthenticatedPlantsRouteWithChildren
+  '/plants/$id': typeof AuthenticatedPlantsIdRouteWithChildren
+  '/plants/new': typeof AuthenticatedPlantsNewRoute
+  '/plants/$id/analyze': typeof AuthenticatedPlantsIdAnalyzeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/login': typeof LoginRoute
+  '/_authenticated/plants': typeof AuthenticatedPlantsRouteWithChildren
+  '/_authenticated/plants/$id': typeof AuthenticatedPlantsIdRouteWithChildren
+  '/_authenticated/plants/new': typeof AuthenticatedPlantsNewRoute
+  '/_authenticated/plants/$id/analyze': typeof AuthenticatedPlantsIdAnalyzeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/plants'
+    | '/plants/$id'
+    | '/plants/new'
+    | '/plants/$id/analyze'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/login'
+    | '/plants'
+    | '/plants/$id'
+    | '/plants/new'
+    | '/plants/$id/analyze'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/login'
+    | '/_authenticated/plants'
+    | '/_authenticated/plants/$id'
+    | '/_authenticated/plants/new'
+    | '/_authenticated/plants/$id/analyze'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  LoginRoute: typeof LoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +136,80 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/plants': {
+      id: '/_authenticated/plants'
+      path: '/plants'
+      fullPath: '/plants'
+      preLoaderRoute: typeof AuthenticatedPlantsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/plants/new': {
+      id: '/_authenticated/plants/new'
+      path: '/new'
+      fullPath: '/plants/new'
+      preLoaderRoute: typeof AuthenticatedPlantsNewRouteImport
+      parentRoute: typeof AuthenticatedPlantsRoute
+    }
+    '/_authenticated/plants/$id': {
+      id: '/_authenticated/plants/$id'
+      path: '/$id'
+      fullPath: '/plants/$id'
+      preLoaderRoute: typeof AuthenticatedPlantsIdRouteImport
+      parentRoute: typeof AuthenticatedPlantsRoute
+    }
+    '/_authenticated/plants/$id/analyze': {
+      id: '/_authenticated/plants/$id/analyze'
+      path: '/analyze'
+      fullPath: '/plants/$id/analyze'
+      preLoaderRoute: typeof AuthenticatedPlantsIdAnalyzeRouteImport
+      parentRoute: typeof AuthenticatedPlantsIdRoute
+    }
   }
 }
 
+interface AuthenticatedPlantsIdRouteChildren {
+  AuthenticatedPlantsIdAnalyzeRoute: typeof AuthenticatedPlantsIdAnalyzeRoute
+}
+
+const AuthenticatedPlantsIdRouteChildren: AuthenticatedPlantsIdRouteChildren = {
+  AuthenticatedPlantsIdAnalyzeRoute: AuthenticatedPlantsIdAnalyzeRoute,
+}
+
+const AuthenticatedPlantsIdRouteWithChildren =
+  AuthenticatedPlantsIdRoute._addFileChildren(
+    AuthenticatedPlantsIdRouteChildren,
+  )
+
+interface AuthenticatedPlantsRouteChildren {
+  AuthenticatedPlantsIdRoute: typeof AuthenticatedPlantsIdRouteWithChildren
+  AuthenticatedPlantsNewRoute: typeof AuthenticatedPlantsNewRoute
+}
+
+const AuthenticatedPlantsRouteChildren: AuthenticatedPlantsRouteChildren = {
+  AuthenticatedPlantsIdRoute: AuthenticatedPlantsIdRouteWithChildren,
+  AuthenticatedPlantsNewRoute: AuthenticatedPlantsNewRoute,
+}
+
+const AuthenticatedPlantsRouteWithChildren =
+  AuthenticatedPlantsRoute._addFileChildren(AuthenticatedPlantsRouteChildren)
+
+interface AuthenticatedRouteChildren {
+  AuthenticatedPlantsRoute: typeof AuthenticatedPlantsRouteWithChildren
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedPlantsRoute: AuthenticatedPlantsRouteWithChildren,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
