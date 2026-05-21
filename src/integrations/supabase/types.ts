@@ -14,7 +14,167 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      plant_records: {
+        Row: {
+          ai_diagnosis: Json | null
+          created_at: string
+          health_status: string | null
+          id: string
+          image_url: string
+          plant_id: string
+          summary: string | null
+          user_id: string
+          user_note: string | null
+        }
+        Insert: {
+          ai_diagnosis?: Json | null
+          created_at?: string
+          health_status?: string | null
+          id?: string
+          image_url: string
+          plant_id: string
+          summary?: string | null
+          user_id: string
+          user_note?: string | null
+        }
+        Update: {
+          ai_diagnosis?: Json | null
+          created_at?: string
+          health_status?: string | null
+          id?: string
+          image_url?: string
+          plant_id?: string
+          summary?: string | null
+          user_id?: string
+          user_note?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plant_records_plant_id_fkey"
+            columns: ["plant_id"]
+            isOneToOne: false
+            referencedRelation: "plants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      plant_reminders: {
+        Row: {
+          action: string
+          completed: boolean
+          completed_at: string | null
+          created_at: string
+          due_at: string
+          id: string
+          plant_id: string
+          priority: string
+          record_id: string | null
+          user_id: string
+        }
+        Insert: {
+          action: string
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          due_at: string
+          id?: string
+          plant_id: string
+          priority?: string
+          record_id?: string | null
+          user_id: string
+        }
+        Update: {
+          action?: string
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          due_at?: string
+          id?: string
+          plant_id?: string
+          priority?: string
+          record_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plant_reminders_plant_id_fkey"
+            columns: ["plant_id"]
+            isOneToOne: false
+            referencedRelation: "plants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "plant_reminders_record_id_fkey"
+            columns: ["record_id"]
+            isOneToOne: false
+            referencedRelation: "plant_records"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      plants: {
+        Row: {
+          cover_image_url: string | null
+          created_at: string
+          id: string
+          location: string | null
+          name: string
+          nickname: string | null
+          notes: string | null
+          species: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          cover_image_url?: string | null
+          created_at?: string
+          id?: string
+          location?: string | null
+          name: string
+          nickname?: string | null
+          notes?: string | null
+          species?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          cover_image_url?: string | null
+          created_at?: string
+          id?: string
+          location?: string | null
+          name?: string
+          nickname?: string | null
+          notes?: string | null
+          species?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
