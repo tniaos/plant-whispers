@@ -12,9 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedPlantsRouteImport } from './routes/_authenticated/plants'
+import { Route as AuthenticatedPlantsIndexRouteImport } from './routes/_authenticated/plants.index'
 import { Route as AuthenticatedPlantsNewRouteImport } from './routes/_authenticated/plants.new'
-import { Route as AuthenticatedPlantsIdRouteImport } from './routes/_authenticated/plants.$id'
+import { Route as AuthenticatedPlantsIdIndexRouteImport } from './routes/_authenticated/plants.$id.index'
 import { Route as AuthenticatedPlantsIdAnalyzeRouteImport } from './routes/_authenticated/plants.$id.analyze'
 
 const LoginRoute = LoginRouteImport.update({
@@ -31,80 +31,82 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedPlantsRoute = AuthenticatedPlantsRouteImport.update({
-  id: '/plants',
-  path: '/plants',
+const AuthenticatedPlantsIndexRoute =
+  AuthenticatedPlantsIndexRouteImport.update({
+    id: '/plants/',
+    path: '/plants/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedPlantsNewRoute = AuthenticatedPlantsNewRouteImport.update({
+  id: '/plants/new',
+  path: '/plants/new',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedPlantsNewRoute = AuthenticatedPlantsNewRouteImport.update({
-  id: '/new',
-  path: '/new',
-  getParentRoute: () => AuthenticatedPlantsRoute,
-} as any)
-const AuthenticatedPlantsIdRoute = AuthenticatedPlantsIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => AuthenticatedPlantsRoute,
-} as any)
+const AuthenticatedPlantsIdIndexRoute =
+  AuthenticatedPlantsIdIndexRouteImport.update({
+    id: '/plants/$id/',
+    path: '/plants/$id/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedPlantsIdAnalyzeRoute =
   AuthenticatedPlantsIdAnalyzeRouteImport.update({
-    id: '/analyze',
-    path: '/analyze',
-    getParentRoute: () => AuthenticatedPlantsIdRoute,
+    id: '/plants/$id/analyze',
+    path: '/plants/$id/analyze',
+    getParentRoute: () => AuthenticatedRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/plants': typeof AuthenticatedPlantsRouteWithChildren
-  '/plants/$id': typeof AuthenticatedPlantsIdRouteWithChildren
   '/plants/new': typeof AuthenticatedPlantsNewRoute
+  '/plants/': typeof AuthenticatedPlantsIndexRoute
   '/plants/$id/analyze': typeof AuthenticatedPlantsIdAnalyzeRoute
+  '/plants/$id/': typeof AuthenticatedPlantsIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/plants': typeof AuthenticatedPlantsRouteWithChildren
-  '/plants/$id': typeof AuthenticatedPlantsIdRouteWithChildren
   '/plants/new': typeof AuthenticatedPlantsNewRoute
+  '/plants': typeof AuthenticatedPlantsIndexRoute
   '/plants/$id/analyze': typeof AuthenticatedPlantsIdAnalyzeRoute
+  '/plants/$id': typeof AuthenticatedPlantsIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
-  '/_authenticated/plants': typeof AuthenticatedPlantsRouteWithChildren
-  '/_authenticated/plants/$id': typeof AuthenticatedPlantsIdRouteWithChildren
   '/_authenticated/plants/new': typeof AuthenticatedPlantsNewRoute
+  '/_authenticated/plants/': typeof AuthenticatedPlantsIndexRoute
   '/_authenticated/plants/$id/analyze': typeof AuthenticatedPlantsIdAnalyzeRoute
+  '/_authenticated/plants/$id/': typeof AuthenticatedPlantsIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/login'
-    | '/plants'
-    | '/plants/$id'
     | '/plants/new'
+    | '/plants/'
     | '/plants/$id/analyze'
+    | '/plants/$id/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/login'
-    | '/plants'
-    | '/plants/$id'
     | '/plants/new'
+    | '/plants'
     | '/plants/$id/analyze'
+    | '/plants/$id'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/login'
-    | '/_authenticated/plants'
-    | '/_authenticated/plants/$id'
     | '/_authenticated/plants/new'
+    | '/_authenticated/plants/'
     | '/_authenticated/plants/$id/analyze'
+    | '/_authenticated/plants/$id/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -136,69 +138,49 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/plants': {
-      id: '/_authenticated/plants'
+    '/_authenticated/plants/': {
+      id: '/_authenticated/plants/'
       path: '/plants'
-      fullPath: '/plants'
-      preLoaderRoute: typeof AuthenticatedPlantsRouteImport
+      fullPath: '/plants/'
+      preLoaderRoute: typeof AuthenticatedPlantsIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/plants/new': {
       id: '/_authenticated/plants/new'
-      path: '/new'
+      path: '/plants/new'
       fullPath: '/plants/new'
       preLoaderRoute: typeof AuthenticatedPlantsNewRouteImport
-      parentRoute: typeof AuthenticatedPlantsRoute
+      parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/plants/$id': {
-      id: '/_authenticated/plants/$id'
-      path: '/$id'
-      fullPath: '/plants/$id'
-      preLoaderRoute: typeof AuthenticatedPlantsIdRouteImport
-      parentRoute: typeof AuthenticatedPlantsRoute
+    '/_authenticated/plants/$id/': {
+      id: '/_authenticated/plants/$id/'
+      path: '/plants/$id'
+      fullPath: '/plants/$id/'
+      preLoaderRoute: typeof AuthenticatedPlantsIdIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/plants/$id/analyze': {
       id: '/_authenticated/plants/$id/analyze'
-      path: '/analyze'
+      path: '/plants/$id/analyze'
       fullPath: '/plants/$id/analyze'
       preLoaderRoute: typeof AuthenticatedPlantsIdAnalyzeRouteImport
-      parentRoute: typeof AuthenticatedPlantsIdRoute
+      parentRoute: typeof AuthenticatedRoute
     }
   }
 }
 
-interface AuthenticatedPlantsIdRouteChildren {
-  AuthenticatedPlantsIdAnalyzeRoute: typeof AuthenticatedPlantsIdAnalyzeRoute
-}
-
-const AuthenticatedPlantsIdRouteChildren: AuthenticatedPlantsIdRouteChildren = {
-  AuthenticatedPlantsIdAnalyzeRoute: AuthenticatedPlantsIdAnalyzeRoute,
-}
-
-const AuthenticatedPlantsIdRouteWithChildren =
-  AuthenticatedPlantsIdRoute._addFileChildren(
-    AuthenticatedPlantsIdRouteChildren,
-  )
-
-interface AuthenticatedPlantsRouteChildren {
-  AuthenticatedPlantsIdRoute: typeof AuthenticatedPlantsIdRouteWithChildren
-  AuthenticatedPlantsNewRoute: typeof AuthenticatedPlantsNewRoute
-}
-
-const AuthenticatedPlantsRouteChildren: AuthenticatedPlantsRouteChildren = {
-  AuthenticatedPlantsIdRoute: AuthenticatedPlantsIdRouteWithChildren,
-  AuthenticatedPlantsNewRoute: AuthenticatedPlantsNewRoute,
-}
-
-const AuthenticatedPlantsRouteWithChildren =
-  AuthenticatedPlantsRoute._addFileChildren(AuthenticatedPlantsRouteChildren)
-
 interface AuthenticatedRouteChildren {
-  AuthenticatedPlantsRoute: typeof AuthenticatedPlantsRouteWithChildren
+  AuthenticatedPlantsNewRoute: typeof AuthenticatedPlantsNewRoute
+  AuthenticatedPlantsIndexRoute: typeof AuthenticatedPlantsIndexRoute
+  AuthenticatedPlantsIdAnalyzeRoute: typeof AuthenticatedPlantsIdAnalyzeRoute
+  AuthenticatedPlantsIdIndexRoute: typeof AuthenticatedPlantsIdIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedPlantsRoute: AuthenticatedPlantsRouteWithChildren,
+  AuthenticatedPlantsNewRoute: AuthenticatedPlantsNewRoute,
+  AuthenticatedPlantsIndexRoute: AuthenticatedPlantsIndexRoute,
+  AuthenticatedPlantsIdAnalyzeRoute: AuthenticatedPlantsIdAnalyzeRoute,
+  AuthenticatedPlantsIdIndexRoute: AuthenticatedPlantsIdIndexRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(

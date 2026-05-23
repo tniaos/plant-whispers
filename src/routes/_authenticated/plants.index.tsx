@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { formatDistanceToNow } from "date-fns";
 import { es } from "date-fns/locale";
 
-export const Route = createFileRoute("/_authenticated/plants")({
+export const Route = createFileRoute("/_authenticated/plants/")({
   component: PlantsPage,
   head: () => ({ meta: [{ title: "Mis plantas — Verdín" }] }),
 });
