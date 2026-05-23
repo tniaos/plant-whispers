@@ -1,13 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Plus, Leaf, Bell } from "lucide-react";
+import { Plus, Leaf, Bell, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Badge } from "@/components/ui/badge";
 import { formatDistanceToNow } from "date-fns";
 import { es } from "date-fns/locale";
 
-export const Route = createFileRoute("/_authenticated/plants")({
+export const Route = createFileRoute("/_authenticated/plants/")({
   component: PlantsPage,
   head: () => ({ meta: [{ title: "Mis plantas — Verdín" }] }),
 });
@@ -62,11 +62,18 @@ function PlantsPage() {
           <h1 className="text-3xl font-bold tracking-tight">Mis plantas</h1>
           <p className="text-muted-foreground">Tu jardín y el estado de cada planta.</p>
         </div>
-        <Link to="/plants/new">
-          <Button>
-            <Plus className="mr-2 h-4 w-4" /> Añadir planta
-          </Button>
-        </Link>
+        <div className="flex gap-2">
+          <Link to="/diagnose">
+            <Button variant="outline">
+              <Sparkles className="mr-2 h-4 w-4" /> Diagnóstico rápido
+            </Button>
+          </Link>
+          <Link to="/plants/new">
+            <Button>
+              <Plus className="mr-2 h-4 w-4" /> Añadir planta
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {isLoading ? (
