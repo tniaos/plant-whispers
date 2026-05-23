@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedDiagnoseRouteImport } from './routes/_authenticated/diagnose'
 import { Route as AuthenticatedPlantsIndexRouteImport } from './routes/_authenticated/plants.index'
 import { Route as AuthenticatedPlantsNewRouteImport } from './routes/_authenticated/plants.new'
 import { Route as AuthenticatedPlantsIdIndexRouteImport } from './routes/_authenticated/plants.$id.index'
@@ -30,6 +31,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedDiagnoseRoute = AuthenticatedDiagnoseRouteImport.update({
+  id: '/diagnose',
+  path: '/diagnose',
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedPlantsIndexRoute =
   AuthenticatedPlantsIndexRouteImport.update({
@@ -58,6 +64,7 @@ const AuthenticatedPlantsIdAnalyzeRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/diagnose': typeof AuthenticatedDiagnoseRoute
   '/plants/new': typeof AuthenticatedPlantsNewRoute
   '/plants/': typeof AuthenticatedPlantsIndexRoute
   '/plants/$id/analyze': typeof AuthenticatedPlantsIdAnalyzeRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/diagnose': typeof AuthenticatedDiagnoseRoute
   '/plants/new': typeof AuthenticatedPlantsNewRoute
   '/plants': typeof AuthenticatedPlantsIndexRoute
   '/plants/$id/analyze': typeof AuthenticatedPlantsIdAnalyzeRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
+  '/_authenticated/diagnose': typeof AuthenticatedDiagnoseRoute
   '/_authenticated/plants/new': typeof AuthenticatedPlantsNewRoute
   '/_authenticated/plants/': typeof AuthenticatedPlantsIndexRoute
   '/_authenticated/plants/$id/analyze': typeof AuthenticatedPlantsIdAnalyzeRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/login'
+    | '/diagnose'
     | '/plants/new'
     | '/plants/'
     | '/plants/$id/analyze'
@@ -94,6 +104,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/login'
+    | '/diagnose'
     | '/plants/new'
     | '/plants'
     | '/plants/$id/analyze'
@@ -103,6 +114,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/login'
+    | '/_authenticated/diagnose'
     | '/_authenticated/plants/new'
     | '/_authenticated/plants/'
     | '/_authenticated/plants/$id/analyze'
@@ -138,6 +150,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/diagnose': {
+      id: '/_authenticated/diagnose'
+      path: '/diagnose'
+      fullPath: '/diagnose'
+      preLoaderRoute: typeof AuthenticatedDiagnoseRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/plants/': {
       id: '/_authenticated/plants/'
       path: '/plants'
@@ -170,6 +189,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteChildren {
+  AuthenticatedDiagnoseRoute: typeof AuthenticatedDiagnoseRoute
   AuthenticatedPlantsNewRoute: typeof AuthenticatedPlantsNewRoute
   AuthenticatedPlantsIndexRoute: typeof AuthenticatedPlantsIndexRoute
   AuthenticatedPlantsIdAnalyzeRoute: typeof AuthenticatedPlantsIdAnalyzeRoute
@@ -177,6 +197,7 @@ interface AuthenticatedRouteChildren {
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedDiagnoseRoute: AuthenticatedDiagnoseRoute,
   AuthenticatedPlantsNewRoute: AuthenticatedPlantsNewRoute,
   AuthenticatedPlantsIndexRoute: AuthenticatedPlantsIndexRoute,
   AuthenticatedPlantsIdAnalyzeRoute: AuthenticatedPlantsIdAnalyzeRoute,
