@@ -26,12 +26,33 @@ function LoginPage() {
     });
   }, [navigate]);
 
+  const translateAuthError = (message: string) => {
+    const known: Record<string, string> = {
+      "password should be at least 6 characters": "La contraseña debe tener al menos 6 caracteres",
+      "password is known to be weak": "Esta contraseña es demasiado común y fácil de adivinar. Usa una más segura.",
+      "invalid login credentials": "Email o contraseña incorrectos",
+      "user already registered": "Este email ya está registrado",
+      "email not confirmed": "Aún no has confirmado tu correo",
+      "invalid format": "El formato del email no es válido",
+      "an account already exists": "Ya existe una cuenta con este email",
+      "signup requires a valid password": "Ingresa una contraseña válida",
+      "unable to validate email address": "El email no es válido",
+    };
+    const lower = message.toLowerCase();
+    for (const [key, val] of Object.entries(known)) {
+      if (lower.includes(key)) return val;
+    }
+    const match = message.match(/at least (\d+)/i);
+    if (match) return `La contraseña debe tener al menos ${match[1]} caracteres`;
+    return message;
+  };
+
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
-    if (error) return toast.error(error.message);
+    if (error) return toast.error(translateAuthError(error.message));
     toast.success("¡Bienvenido de vuelta!");
     navigate({ to: "/plants" });
   };
@@ -45,8 +66,9 @@ function LoginPage() {
       options: { emailRedirectTo: `${window.location.origin}/plants` },
     });
     setLoading(false);
-    if (error) return toast.error(error.message);
-    toast.success("Revisa tu correo para confirmar tu cuenta");
+    if (error) return toast.error(translateAuthError(error.message));
+    toast.success("¡Cuenta creada! Bienvenido a Verdín");
+    navigate({ to: "/plants" });
   };
 
   const handleGoogle = async () => {
