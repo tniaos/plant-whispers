@@ -136,8 +136,8 @@ function AuthenticatedLayout() {
 
       <main
         className={`relative z-10 min-h-screen px-6 py-10 transition-all duration-300 md:px-10 ${
-          collapsed ? "pl-[92px]" : "pl-[254px]"
-        }`}
+          collapsed ? "md:pl-[92px]" : "md:pl-[254px]"
+        } pl-[88px]`}
       >
         <div className="mx-auto max-w-6xl animate-grow-in">
           <Outlet />
