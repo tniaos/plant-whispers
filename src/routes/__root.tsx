@@ -75,14 +75,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Verdín — Cuidado de plantas con IA" },
+      { title: "GreenMind — Cuidado de plantas con IA" },
       {
         name: "description",
         content:
           "Sube una foto de tu planta y recibe un diagnóstico al instante con recordatorios personalizados.",
       },
-      { name: "author", content: "Verdín" },
-      { property: "og:title", content: "Verdín — Cuidado de plantas con IA" },
+      { name: "author", content: "GreenMind" },
+      { property: "og:title", content: "GreenMind — Cuidado de plantas con IA" },
       {
         property: "og:description",
         content: "Diagnósticos botánicos por IA y recordatorios para cuidar mejor tus plantas.",

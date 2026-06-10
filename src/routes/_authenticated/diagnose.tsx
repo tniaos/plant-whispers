@@ -14,7 +14,7 @@ import { quickDiagnose, saveQuickDiagnosis, type PlantDiagnosis } from "@/lib/pl
 
 export const Route = createFileRoute("/_authenticated/diagnose")({
   component: DiagnosePage,
-  head: () => ({ meta: [{ title: "Diagnóstico rápido — Verdín" }] }),
+  head: () => ({ meta: [{ title: "Diagnóstico rápido — GreenMind" }] }),
 });
 
 const healthLabel: Record<string, { label: string; tone: string }> = {

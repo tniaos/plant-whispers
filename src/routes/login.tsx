@@ -11,7 +11,7 @@ import { lovable } from "@/integrations/lovable";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
-  head: () => ({ meta: [{ title: "Entrar — Verdín" }] }),
+  head: () => ({ meta: [{ title: "Entrar — GreenMind" }] }),
 });
 
 function LoginPage() {
@@ -67,7 +67,7 @@ function LoginPage() {
     });
     setLoading(false);
     if (error) return toast.error(translateAuthError(error.message));
-    toast.success("¡Cuenta creada! Bienvenido a Verdín");
+    toast.success("¡Cuenta creada! Bienvenido a GreenMind");
     navigate({ to: "/plants" });
   };
 
@@ -91,7 +91,7 @@ function LoginPage() {
           <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-mint text-forest">
             <Leaf className="h-4 w-4 animate-leaf-sway" />
           </span>
-          <span className="font-display text-xl font-semibold">Verdín</span>
+          <span className="font-display text-xl font-semibold">GreenMind</span>
         </Link>
 
         {/* SVG composition */}
@@ -131,7 +131,7 @@ function LoginPage() {
                 <span key={c} className="h-7 w-7 rounded-full border-2 border-forest" style={{ background: c }} />
               ))}
             </div>
-            12.000+ jardineros cuidan con Verdín
+            12.000+ jardineros cuidan con GreenMind
           </div>
         </div>
       </div>
@@ -146,7 +146,7 @@ function LoginPage() {
             <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-forest text-cream">
               <Leaf className="h-5 w-5" />
             </div>
-            <span className="font-display text-lg font-semibold">Verdín</span>
+            <span className="font-display text-lg font-semibold">GreenMind</span>
           </Link>
 
           <div className="glass rounded-[2rem] p-8 shadow-[var(--shadow-float)]">

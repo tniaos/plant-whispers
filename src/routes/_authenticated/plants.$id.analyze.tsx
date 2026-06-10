@@ -12,7 +12,7 @@ import { analyzePlantPhoto } from "@/lib/plants.functions";
 
 export const Route = createFileRoute("/_authenticated/plants/$id/analyze")({
   component: AnalyzePage,
-  head: () => ({ meta: [{ title: "Analizar planta — Verdín" }] }),
+  head: () => ({ meta: [{ title: "Analizar planta — GreenMind" }] }),
 });
 
 function AnalyzePage() {
