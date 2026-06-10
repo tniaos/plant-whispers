@@ -79,8 +79,8 @@ function AuthenticatedLayout() {
 
       {/* Floating collapsible sidebar */}
       <aside
-        className={`fixed left-4 top-4 bottom-4 z-30 flex flex-col rounded-3xl text-cream shadow-[var(--shadow-float)] transition-all duration-300 ${
-          collapsed ? "w-[68px]" : "w-[230px]"
+        className={`fixed left-4 top-4 bottom-4 z-30 flex w-[68px] flex-col rounded-3xl text-cream shadow-[var(--shadow-float)] transition-all duration-300 ${
+          collapsed ? "md:w-[68px]" : "md:w-[230px]"
         }`}
         style={{ background: "var(--gradient-forest)" }}
       >
@@ -89,7 +89,7 @@ function AuthenticatedLayout() {
             <Leaf className="h-4 w-4 animate-leaf-sway" />
           </span>
           {!collapsed && (
-            <span className="font-display text-lg font-semibold tracking-tight">Verdín</span>
+            <span className="hidden font-display text-lg font-semibold tracking-tight md:inline">Verdín</span>
           )}
         </Link>
 
@@ -106,9 +106,9 @@ function AuthenticatedLayout() {
                 title={collapsed ? item.label : undefined}
               >
                 <item.icon className="h-4 w-4 shrink-0" />
-                {!collapsed && <span className="truncate">{item.label}</span>}
+                {!collapsed && <span className="hidden truncate md:inline">{item.label}</span>}
                 {active && !collapsed && (
-                  <span className="ml-auto h-1.5 w-1.5 rounded-full bg-forest" />
+                  <span className="ml-auto hidden h-1.5 w-1.5 rounded-full bg-forest md:block" />
                 )}
               </Link>
             );
@@ -122,11 +122,11 @@ function AuthenticatedLayout() {
             title={collapsed ? "Salir" : undefined}
           >
             <LogOut className="h-4 w-4 shrink-0" />
-            {!collapsed && <span>Salir</span>}
+            {!collapsed && <span className="hidden md:inline">Salir</span>}
           </button>
           <button
             onClick={() => setCollapsed((c) => !c)}
-            className="mt-2 flex w-full items-center justify-center rounded-2xl bg-white/10 px-3 py-2 text-cream/70 transition hover:bg-white/20"
+            className="mt-2 hidden w-full items-center justify-center rounded-2xl bg-white/10 px-3 py-2 text-cream/70 transition hover:bg-white/20 md:flex"
             aria-label={collapsed ? "Expandir menú" : "Colapsar menú"}
           >
             {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
