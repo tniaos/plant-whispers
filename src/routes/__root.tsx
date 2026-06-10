@@ -90,6 +90,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "GreenMind — Cuidado de plantas con IA" },
+      { name: "description", content: "Plant Whispers helps users manage and diagnose plant health through a modern web interface." },
+      { property: "og:description", content: "Plant Whispers helps users manage and diagnose plant health through a modern web interface." },
+      { name: "twitter:description", content: "Plant Whispers helps users manage and diagnose plant health through a modern web interface." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/638cf024-1f1c-4b1a-b465-11e27fb7c7fe/id-preview-1c0f78eb--18b4a077-5f99-4006-96de-d0c8268171e1.lovable.app-1781057126685.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/638cf024-1f1c-4b1a-b465-11e27fb7c7fe/id-preview-1c0f78eb--18b4a077-5f99-4006-96de-d0c8268171e1.lovable.app-1781057126685.png" },
     ],
     links: [
       {
