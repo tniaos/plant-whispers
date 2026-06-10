@@ -89,7 +89,7 @@ function AuthenticatedLayout() {
             <Leaf className="h-4 w-4 animate-leaf-sway" />
           </span>
           {!collapsed && (
-            <span className="hidden font-display text-lg font-semibold tracking-tight md:inline">Verdín</span>
+            <span className="hidden font-display text-lg font-semibold tracking-tight md:inline">GreenMind</span>
           )}
         </Link>
 

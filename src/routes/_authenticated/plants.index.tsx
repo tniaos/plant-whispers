@@ -8,7 +8,7 @@ import { es } from "date-fns/locale";
 
 export const Route = createFileRoute("/_authenticated/plants/")({
   component: PlantsPage,
-  head: () => ({ meta: [{ title: "Mis plantas — Verdín" }] }),
+  head: () => ({ meta: [{ title: "Mis plantas — GreenMind" }] }),
 });
 
 const healthLabel: Record<string, { label: string; tone: string }> = {

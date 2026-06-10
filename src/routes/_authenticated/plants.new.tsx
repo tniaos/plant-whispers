@@ -11,7 +11,7 @@ import { uploadPlantPhoto } from "@/lib/upload";
 
 export const Route = createFileRoute("/_authenticated/plants/new")({
   component: NewPlantPage,
-  head: () => ({ meta: [{ title: "Nueva planta — Verdín" }] }),
+  head: () => ({ meta: [{ title: "Nueva planta — GreenMind" }] }),
 });
 
 function NewPlantPage() {

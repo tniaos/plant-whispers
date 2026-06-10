@@ -6,7 +6,7 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Verdín — Cuidado de plantas con IA" },
+      { title: "GreenMind — Cuidado de plantas con IA" },
       {
         name: "description",
         content:
@@ -43,7 +43,7 @@ function Index() {
           <span className="flex h-8 w-8 items-center justify-center rounded-full text-cream" style={{ background: "var(--gradient-leaf)" }}>
             <Leaf className="h-4 w-4 animate-leaf-sway" />
           </span>
-          <span className="font-display text-base font-semibold tracking-tight text-forest">Verdín</span>
+          <span className="font-display text-base font-semibold tracking-tight text-forest">GreenMind</span>
         </Link>
       </div>
 
@@ -80,7 +80,7 @@ function Index() {
             te dicen.
           </h1>
           <p className="mt-6 max-w-md text-lg leading-relaxed text-foreground/70">
-            Una foto basta. Verdín identifica la especie, detecta enfermedades y
+            Una foto basta. GreenMind identifica la especie, detecta enfermedades y
             te prepara un ritual de cuidados con recordatorios suaves.
           </p>
 
@@ -261,7 +261,7 @@ function Index() {
       </section>
 
       <footer className="relative z-10 border-t border-border/40 px-6 py-8 text-center text-xs text-muted-foreground md:px-12">
-        Hecho con <span className="text-leaf">🌱</span> · Verdín — un botánico digital
+        Hecho con <span className="text-leaf">🌱</span> · GreenMind — un botánico digital
       </footer>
     </div>
   );
