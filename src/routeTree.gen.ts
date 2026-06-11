@@ -8,192 +8,175 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedDiagnoseRouteImport } from './routes/_authenticated/diagnose'
-import { Route as AuthenticatedPlantsIndexRouteImport } from './routes/_authenticated/plants.index'
-import { Route as AuthenticatedPlantsNewRouteImport } from './routes/_authenticated/plants.new'
-import { Route as AuthenticatedPlantsIdIndexRouteImport } from './routes/_authenticated/plants.$id.index'
-import { Route as AuthenticatedPlantsIdAnalyzeRouteImport } from './routes/_authenticated/plants.$id.analyze'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as LoginRouteImport } from "./routes/login";
+import { Route as AuthenticatedRouteImport } from "./routes/_authenticated";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as AuthenticatedDiagnoseRouteImport } from "./routes/_authenticated/diagnose";
+import { Route as AuthenticatedPlantsIndexRouteImport } from "./routes/_authenticated/plants.index";
+import { Route as AuthenticatedPlantsNewRouteImport } from "./routes/_authenticated/plants.new";
+import { Route as AuthenticatedPlantsIdIndexRouteImport } from "./routes/_authenticated/plants.$id.index";
+import { Route as AuthenticatedPlantsIdAnalyzeRouteImport } from "./routes/_authenticated/plants.$id.analyze";
 
 const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+  id: "/login",
+  path: "/login",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
-  id: '/_authenticated',
+  id: "/_authenticated",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AuthenticatedDiagnoseRoute = AuthenticatedDiagnoseRouteImport.update({
-  id: '/diagnose',
-  path: '/diagnose',
+  id: "/diagnose",
+  path: "/diagnose",
   getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedPlantsIndexRoute =
-  AuthenticatedPlantsIndexRouteImport.update({
-    id: '/plants/',
-    path: '/plants/',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
+} as any);
+const AuthenticatedPlantsIndexRoute = AuthenticatedPlantsIndexRouteImport.update({
+  id: "/plants/",
+  path: "/plants/",
+  getParentRoute: () => AuthenticatedRoute,
+} as any);
 const AuthenticatedPlantsNewRoute = AuthenticatedPlantsNewRouteImport.update({
-  id: '/plants/new',
-  path: '/plants/new',
+  id: "/plants/new",
+  path: "/plants/new",
   getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedPlantsIdIndexRoute =
-  AuthenticatedPlantsIdIndexRouteImport.update({
-    id: '/plants/$id/',
-    path: '/plants/$id/',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedPlantsIdAnalyzeRoute =
-  AuthenticatedPlantsIdAnalyzeRouteImport.update({
-    id: '/plants/$id/analyze',
-    path: '/plants/$id/analyze',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
+} as any);
+const AuthenticatedPlantsIdIndexRoute = AuthenticatedPlantsIdIndexRouteImport.update({
+  id: "/plants/$id/",
+  path: "/plants/$id/",
+  getParentRoute: () => AuthenticatedRoute,
+} as any);
+const AuthenticatedPlantsIdAnalyzeRoute = AuthenticatedPlantsIdAnalyzeRouteImport.update({
+  id: "/plants/$id/analyze",
+  path: "/plants/$id/analyze",
+  getParentRoute: () => AuthenticatedRoute,
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/diagnose': typeof AuthenticatedDiagnoseRoute
-  '/plants/new': typeof AuthenticatedPlantsNewRoute
-  '/plants/': typeof AuthenticatedPlantsIndexRoute
-  '/plants/$id/analyze': typeof AuthenticatedPlantsIdAnalyzeRoute
-  '/plants/$id/': typeof AuthenticatedPlantsIdIndexRoute
+  "/": typeof IndexRoute;
+  "/login": typeof LoginRoute;
+  "/diagnose": typeof AuthenticatedDiagnoseRoute;
+  "/plants/new": typeof AuthenticatedPlantsNewRoute;
+  "/plants/": typeof AuthenticatedPlantsIndexRoute;
+  "/plants/$id/analyze": typeof AuthenticatedPlantsIdAnalyzeRoute;
+  "/plants/$id/": typeof AuthenticatedPlantsIdIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/diagnose': typeof AuthenticatedDiagnoseRoute
-  '/plants/new': typeof AuthenticatedPlantsNewRoute
-  '/plants': typeof AuthenticatedPlantsIndexRoute
-  '/plants/$id/analyze': typeof AuthenticatedPlantsIdAnalyzeRoute
-  '/plants/$id': typeof AuthenticatedPlantsIdIndexRoute
+  "/": typeof IndexRoute;
+  "/login": typeof LoginRoute;
+  "/diagnose": typeof AuthenticatedDiagnoseRoute;
+  "/plants/new": typeof AuthenticatedPlantsNewRoute;
+  "/plants": typeof AuthenticatedPlantsIndexRoute;
+  "/plants/$id/analyze": typeof AuthenticatedPlantsIdAnalyzeRoute;
+  "/plants/$id": typeof AuthenticatedPlantsIdIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/_authenticated': typeof AuthenticatedRouteWithChildren
-  '/login': typeof LoginRoute
-  '/_authenticated/diagnose': typeof AuthenticatedDiagnoseRoute
-  '/_authenticated/plants/new': typeof AuthenticatedPlantsNewRoute
-  '/_authenticated/plants/': typeof AuthenticatedPlantsIndexRoute
-  '/_authenticated/plants/$id/analyze': typeof AuthenticatedPlantsIdAnalyzeRoute
-  '/_authenticated/plants/$id/': typeof AuthenticatedPlantsIdIndexRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/_authenticated": typeof AuthenticatedRouteWithChildren;
+  "/login": typeof LoginRoute;
+  "/_authenticated/diagnose": typeof AuthenticatedDiagnoseRoute;
+  "/_authenticated/plants/new": typeof AuthenticatedPlantsNewRoute;
+  "/_authenticated/plants/": typeof AuthenticatedPlantsIndexRoute;
+  "/_authenticated/plants/$id/analyze": typeof AuthenticatedPlantsIdAnalyzeRoute;
+  "/_authenticated/plants/$id/": typeof AuthenticatedPlantsIdIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/login'
-    | '/diagnose'
-    | '/plants/new'
-    | '/plants/'
-    | '/plants/$id/analyze'
-    | '/plants/$id/'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/login'
-    | '/diagnose'
-    | '/plants/new'
-    | '/plants'
-    | '/plants/$id/analyze'
-    | '/plants/$id'
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/" | "/login" | "/diagnose" | "/plants/new" | "/plants/" | "/plants/$id/analyze" | "/plants/$id/";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/login" | "/diagnose" | "/plants/new" | "/plants" | "/plants/$id/analyze" | "/plants/$id";
   id:
-    | '__root__'
-    | '/'
-    | '/_authenticated'
-    | '/login'
-    | '/_authenticated/diagnose'
-    | '/_authenticated/plants/new'
-    | '/_authenticated/plants/'
-    | '/_authenticated/plants/$id/analyze'
-    | '/_authenticated/plants/$id/'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/_authenticated"
+    | "/login"
+    | "/_authenticated/diagnose"
+    | "/_authenticated/plants/new"
+    | "/_authenticated/plants/"
+    | "/_authenticated/plants/$id/analyze"
+    | "/_authenticated/plants/$id/";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
-  LoginRoute: typeof LoginRoute
+  IndexRoute: typeof IndexRoute;
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren;
+  LoginRoute: typeof LoginRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/diagnose': {
-      id: '/_authenticated/diagnose'
-      path: '/diagnose'
-      fullPath: '/diagnose'
-      preLoaderRoute: typeof AuthenticatedDiagnoseRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/plants/': {
-      id: '/_authenticated/plants/'
-      path: '/plants'
-      fullPath: '/plants/'
-      preLoaderRoute: typeof AuthenticatedPlantsIndexRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/plants/new': {
-      id: '/_authenticated/plants/new'
-      path: '/plants/new'
-      fullPath: '/plants/new'
-      preLoaderRoute: typeof AuthenticatedPlantsNewRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/plants/$id/': {
-      id: '/_authenticated/plants/$id/'
-      path: '/plants/$id'
-      fullPath: '/plants/$id/'
-      preLoaderRoute: typeof AuthenticatedPlantsIdIndexRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/plants/$id/analyze': {
-      id: '/_authenticated/plants/$id/analyze'
-      path: '/plants/$id/analyze'
-      fullPath: '/plants/$id/analyze'
-      preLoaderRoute: typeof AuthenticatedPlantsIdAnalyzeRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
+    "/login": {
+      id: "/login";
+      path: "/login";
+      fullPath: "/login";
+      preLoaderRoute: typeof LoginRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/_authenticated": {
+      id: "/_authenticated";
+      path: "";
+      fullPath: "/";
+      preLoaderRoute: typeof AuthenticatedRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/_authenticated/diagnose": {
+      id: "/_authenticated/diagnose";
+      path: "/diagnose";
+      fullPath: "/diagnose";
+      preLoaderRoute: typeof AuthenticatedDiagnoseRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
+    "/_authenticated/plants/": {
+      id: "/_authenticated/plants/";
+      path: "/plants";
+      fullPath: "/plants/";
+      preLoaderRoute: typeof AuthenticatedPlantsIndexRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
+    "/_authenticated/plants/new": {
+      id: "/_authenticated/plants/new";
+      path: "/plants/new";
+      fullPath: "/plants/new";
+      preLoaderRoute: typeof AuthenticatedPlantsNewRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
+    "/_authenticated/plants/$id/": {
+      id: "/_authenticated/plants/$id/";
+      path: "/plants/$id";
+      fullPath: "/plants/$id/";
+      preLoaderRoute: typeof AuthenticatedPlantsIdIndexRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
+    "/_authenticated/plants/$id/analyze": {
+      id: "/_authenticated/plants/$id/analyze";
+      path: "/plants/$id/analyze";
+      fullPath: "/plants/$id/analyze";
+      preLoaderRoute: typeof AuthenticatedPlantsIdAnalyzeRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
+    };
   }
 }
 
 interface AuthenticatedRouteChildren {
-  AuthenticatedDiagnoseRoute: typeof AuthenticatedDiagnoseRoute
-  AuthenticatedPlantsNewRoute: typeof AuthenticatedPlantsNewRoute
-  AuthenticatedPlantsIndexRoute: typeof AuthenticatedPlantsIndexRoute
-  AuthenticatedPlantsIdAnalyzeRoute: typeof AuthenticatedPlantsIdAnalyzeRoute
-  AuthenticatedPlantsIdIndexRoute: typeof AuthenticatedPlantsIdIndexRoute
+  AuthenticatedDiagnoseRoute: typeof AuthenticatedDiagnoseRoute;
+  AuthenticatedPlantsNewRoute: typeof AuthenticatedPlantsNewRoute;
+  AuthenticatedPlantsIndexRoute: typeof AuthenticatedPlantsIndexRoute;
+  AuthenticatedPlantsIdAnalyzeRoute: typeof AuthenticatedPlantsIdAnalyzeRoute;
+  AuthenticatedPlantsIdIndexRoute: typeof AuthenticatedPlantsIdIndexRoute;
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
@@ -202,17 +185,13 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedPlantsIndexRoute: AuthenticatedPlantsIndexRoute,
   AuthenticatedPlantsIdAnalyzeRoute: AuthenticatedPlantsIdAnalyzeRoute,
   AuthenticatedPlantsIdIndexRoute: AuthenticatedPlantsIdIndexRoute,
-}
+};
 
-const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
-  AuthenticatedRouteChildren,
-)
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(AuthenticatedRouteChildren);
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   LoginRoute: LoginRoute,
-}
-export const routeTree = rootRouteImport
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+};
+export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>();
