@@ -40,19 +40,19 @@ export const quickDiagnose = createServerFn({ method: "POST" })
       .parse(input)
   )
   .handler(async ({ data }) => {
-    const apiKey = process.env.LOVABLE_API_KEY;
-    if (!apiKey) throw new Error("LOVABLE_API_KEY no configurado");
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) throw new Error("GEMINI_API_KEY no configurado");
 
     const systemPrompt = `Eres un experto botánico. Analiza la foto enviada (hoja, tallo o planta entera), identifica la especie con la mayor precisión posible y entrega un diagnóstico claro en ESPAÑOL. Devuelve SIEMPRE el resultado usando la función report_diagnosis.`;
     const userText = data.userNote
       ? `Nota del usuario: ${data.userNote}\n\nIdentifica la especie y analiza el estado.`
       : "Identifica la especie en la imagen y dime cómo cuidarla.";
 
-    const aiRes = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const aiRes = await fetch("https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", {
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
+        model: "gemini-2.5-flash",
         messages: [
           { role: "system", content: systemPrompt },
           {
@@ -116,8 +116,8 @@ export const quickDiagnose = createServerFn({ method: "POST" })
     if (!aiRes.ok) {
       const text = await aiRes.text();
       if (aiRes.status === 429) throw new Error("Demasiadas solicitudes. Intenta de nuevo.");
-      if (aiRes.status === 402) throw new Error("Se agotaron los créditos de IA.");
-      console.error("AI gateway error", aiRes.status, text);
+      if (aiRes.status === 401 || aiRes.status === 403) throw new Error("GEMINI_API_KEY inválida.");
+      console.error("Gemini API error", aiRes.status, text);
       throw new Error("Falló el análisis con IA");
     }
 
@@ -206,8 +206,8 @@ export const analyzePlantPhoto = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
-    const apiKey = process.env.LOVABLE_API_KEY;
-    if (!apiKey) throw new Error("LOVABLE_API_KEY no configurado");
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) throw new Error("GEMINI_API_KEY no configurado");
 
     // Confirm the plant belongs to user
     const { data: plant, error: plantErr } = await supabase
@@ -223,14 +223,14 @@ export const analyzePlantPhoto = createServerFn({ method: "POST" })
       ? `Nota del usuario: ${data.userNote}\n\nAnaliza la planta en la imagen.`
       : "Analiza la planta en la imagen y dime cómo cuidarla.";
 
-    const aiRes = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const aiRes = await fetch("https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
+        model: "gemini-2.5-flash",
         messages: [
           { role: "system", content: systemPrompt },
           {
@@ -305,10 +305,10 @@ export const analyzePlantPhoto = createServerFn({ method: "POST" })
       if (aiRes.status === 429) {
         throw new Error("Demasiadas solicitudes. Intenta de nuevo en unos segundos.");
       }
-      if (aiRes.status === 402) {
-        throw new Error("Se agotaron los créditos de IA. Añade saldo en Lovable.");
+      if (aiRes.status === 401 || aiRes.status === 403) {
+        throw new Error("GEMINI_API_KEY inválida.");
       }
-      console.error("AI gateway error", aiRes.status, text);
+      console.error("Gemini API error", aiRes.status, text);
       throw new Error("Falló el análisis con IA");
     }
 
