@@ -27,6 +27,7 @@ function createSupabaseClient() {
     },
   }
 );
+}
 
 let _supabase: ReturnType<typeof createSupabaseClient> | undefined;
 
